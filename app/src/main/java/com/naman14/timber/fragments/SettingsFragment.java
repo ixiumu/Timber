@@ -17,6 +17,7 @@ package com.naman14.timber.fragments;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -86,22 +87,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-                                          String key) {
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
     }
 
     private void setPreferenceClickListeners() {
-
-//        themePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-//            @Override
-//            public boolean onPreferenceChange(Preference preference, Object newValue) {
-//                Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
-//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(i);
-//                return true;
-//            }
-//        });
-
         startPagePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -129,9 +118,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         Intent restoreIntent = new Intent(getActivity(), DonateActivity.class);
         restoreIntent.putExtra("title", "Restoring purchases..");
         restoreIntent.setAction("restore");
-
-        findPreference("support_development").setIntent(new Intent(getActivity(), DonateActivity.class));
-        findPreference("restore_purchases").setIntent(restoreIntent);
 
         lockscreen.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
@@ -164,9 +150,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                     mPreferences.updateService(extras);
                     updateLastFM();
                 } else {
-                    LastFmLoginDialog lastFmLoginDialog = new LastFmLoginDialog();
-                    lastFmLoginDialog.show(getChildFragmentManager(), LastFmLoginDialog.FRAGMENT_NAME);
-
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        LastFmLoginDialog lastFmLoginDialog = new LastFmLoginDialog();
+                        lastFmLoginDialog.show(getChildFragmentManager(), LastFmLoginDialog.FRAGMENT_NAME);
+                    }
                 }
                 return true;
             }
@@ -255,11 +242,11 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         String username = LastFmClient.getInstance(getActivity()).getUsername();
         if (username != null) {
             lastFMlogedin = true;
-            lastFMlogin.setTitle("Logout");
+            lastFMlogin.setTitle(getString(R.string.logout));
             lastFMlogin.setSummary(String.format(getString(R.string.lastfm_loged_in),username));
         } else {
             lastFMlogedin = false;
-            lastFMlogin.setTitle("Login");
+            lastFMlogin.setTitle(getString(R.string.login));
             lastFMlogin.setSummary(getString(R.string.lastfm_pref));
         }
     }

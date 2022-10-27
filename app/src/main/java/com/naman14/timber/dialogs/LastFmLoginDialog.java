@@ -25,7 +25,7 @@ public class LastFmLoginDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new MaterialDialog.Builder(getActivity()).
-                positiveText("Login").
+                positiveText(getString(R.string.login)).
                 negativeText(getString(R.string.cancel)).
                 title(getString(R.string.lastfm_login)).
                 customView(R.layout.dialog_lastfm_login, false).

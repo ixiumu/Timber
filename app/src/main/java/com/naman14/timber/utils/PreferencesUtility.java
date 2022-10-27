@@ -245,10 +245,6 @@ public final class PreferencesUtility {
         return mPreferences.getString(LAST_FOLDER, Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getPath());
     }
 
-    public boolean fullUnlocked() {
-        return mPreferences.getBoolean(FULL_UNLOCKED, false);
-    }
-
     public void setFullUnlocked(final boolean b) {
         final SharedPreferences.Editor editor = mPreferences.edit();
         editor.putBoolean(FULL_UNLOCKED, b);

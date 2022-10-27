@@ -219,8 +219,8 @@ public class PlaylistFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         if (showAuto) {
-            menu.findItem(R.id.action_view_auto_playlists).setTitle("Hide auto playlists");
-        } else menu.findItem(R.id.action_view_auto_playlists).setTitle("Show auto playlists");
+            menu.findItem(R.id.action_view_auto_playlists).setTitle(getString(R.string.hide_auto_playlists));
+        } else menu.findItem(R.id.action_view_auto_playlists).setTitle(getString(R.string.show_auto_playlists));
     }
 
     @Override

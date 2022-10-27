@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="app_name">Timber</string>
+    <string name="app_name">音乐</string>
     <string name="action_settings">设置</string>
 
     <string name="accessibility_play">播放</string>
@@ -75,7 +75,7 @@
     <string name="system_animations">系统动画</string>
     <string name="toggle_animations">切换整个应用的过渡动画</string>
     <string name="animations">动画</string>
-    <string name="now_playing_selector">从4中不同的播放界面风格中选择一个</string>
+    <string name="now_playing_selector">选择喜好的播放界面主题风格</string>
     <string name="personalisation">个性化</string>
     <string name="other">其他</string>
     <string name="advanced">高级</string>
@@ -137,16 +137,29 @@
     <string name="play_next">下一首播放</string>
     <string name="new_playlist">新的播放列表</string>
 
+    <string name="menu_show_lyrics">显示歌词</string>
 
     <string name="nothing_found">没有结果</string>
     <string name="folders">文件夹</string>
     <string name="select_storage">选择存储器</string>
 
+    <string name="login">登录</string>
+    <string name="logout">注销</string>
     <string name="lastfm_pref">登录 Last.fm 以上传偏好数据</string>
     <string name="lastfm_login_failture">登录失败</string>
     <string name="lastfm_login">登录 Last.fm</string>
     <string name="lastfm_loged_in">已登录为 %s</string>
+    <string name="always_load_album_images_lastfm">始终从 Last.fm 加载专辑封面</string>
+    <string name="always_load_album_images_lastfm_summary">如果未选中，将从本地获取专辑封面（如果可用）</string>
 
     <string name="cancel">取消</string>
 
+    <string name="delete_playlist">删除播放列表</string>
+    <string name="delete_playlist_tip">您确定要删除播放列表</string>
+    <string name="clear">清理</string>
+    <string name="delete">删除</string>
+    <string name="hide_auto_playlists">隐藏自动播放列表</string>
+    <string name="show_auto_playlists">显示自动播放列表</string>
+    <string name="no_media_found">未找到音乐</string>
+    <string name="no_songs_in_queue">队列为空</string>
 </resources>

@@ -70,14 +70,7 @@ public class SubStyleSelectorFragment extends Fragment {
         styleImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (getArguments().getInt(ARG_PAGE_NUMBER) >= 4) {
-                    if (isUnlocked()) {
-                        setPreferences();
-                    } else {
-                        showPurchaseDialog();
-                    }
-                } else
-                    setPreferences();
+                setPreferences();
             }
         });
 
@@ -111,48 +104,12 @@ public class SubStyleSelectorFragment extends Fragment {
     }
 
     private boolean isUnlocked() {
-        return getActivity() != null && PreferencesUtility.getInstance(getActivity()).fullUnlocked();
+        return true;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        updateLockedStatus();
-    }
-
-    private void updateLockedStatus() {
-        if (getArguments().getInt(ARG_PAGE_NUMBER) >= 4 && !isUnlocked()) {
-            imgLock.setVisibility(View.VISIBLE);
-            foreground.setVisibility(View.VISIBLE);
-        }
-        else {
-            imgLock.setVisibility(View.GONE);
-            foreground.setVisibility(View.GONE);
-        }
-    }
-    private void showPurchaseDialog() {
-        MaterialDialog dialog = new MaterialDialog.Builder(getActivity())
-                .title("Purchase")
-                .content("This now playing style is available after a one time purchase of any amount. Support development and unlock this style?")
-                .positiveText("Support development")
-                .neutralText("Restore purchases")
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        startActivity(new Intent(getActivity(), DonateActivity.class));
-                        dialog.dismiss();
-                    }
-                }).onNeutral(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Intent intent = new Intent(getActivity(), DonateActivity.class);
-                        intent.putExtra("title", "Restoring purchases..");
-                        intent.setAction("restore");
-                        startActivity(intent);
-                        dialog.dismiss();
-                    }
-                })
-                .show();
     }
 
     public void setCurrentStyle() {

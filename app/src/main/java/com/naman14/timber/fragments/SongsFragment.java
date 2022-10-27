@@ -14,6 +14,7 @@
 
 package com.naman14.timber.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -60,7 +61,7 @@ public class SongsFragment extends Fragment implements MusicStateListener {
 
         recyclerView = rootView.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setEmptyView(getActivity(), rootView.findViewById(R.id.list_empty), "No media found");
+        recyclerView.setEmptyView(getActivity(), rootView.findViewById(R.id.list_empty), getString(R.string.no_media_found));
         FastScroller fastScroller =  rootView.findViewById(R.id.fastscroller);
         fastScroller.setRecyclerView(recyclerView);
 
@@ -78,11 +79,13 @@ public class SongsFragment extends Fragment implements MusicStateListener {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void onMetaChanged() {
         if (mAdapter != null)
             mAdapter.notifyDataSetChanged();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void reloadAdapter() {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -92,6 +95,7 @@ public class SongsFragment extends Fragment implements MusicStateListener {
                 return null;
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             protected void onPostExecute(Void aVoid) {
                 mAdapter.notifyDataSetChanged();

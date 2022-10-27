@@ -14,6 +14,7 @@
 
 package com.naman14.timber.activities;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -164,6 +165,7 @@ public class PlaylistDetailActivity extends BaseActivity implements ATEActivityT
             dragSortRecycler.setViewHandleId(R.id.reorder);
 
             dragSortRecycler.setOnItemMovedListener(new DragSortRecycler.OnItemMovedListener() {
+                @SuppressLint("NotifyDataSetChanged")
                 @Override
                 public void onItemMoved(int from, int to) {
                     Log.d("playlist", "onItemMoved " + from + " to " + to);
@@ -193,7 +195,7 @@ public class PlaylistDetailActivity extends BaseActivity implements ATEActivityT
                         .build());
     }
 
-    private void setRecyclerViewAapter() {
+    private void setRecyclerViewAdapter() {
         recyclerView.setAdapter(mAdapter);
         if (animate && TimberUtils.isLollipop()) {
             Handler handler = new Handler();
@@ -214,19 +216,19 @@ public class PlaylistDetailActivity extends BaseActivity implements ATEActivityT
 
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class loadLastAdded extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... params) {
-            List<Song> lastadded = LastAddedLoader.getLastAddedSongs(mContext);
-            mAdapter = new SongsListAdapter(mContext, lastadded, true, animate);
+            List<Song> lastAdded = LastAddedLoader.getLastAddedSongs(mContext);
+            mAdapter = new SongsListAdapter(mContext, lastAdded, true, animate);
             mAdapter.setPlaylistId(playlistID);
             return "Executed";
         }
 
         @Override
         protected void onPostExecute(String result) {
-            setRecyclerViewAapter();
+            setRecyclerViewAdapter();
         }
 
         @Override
@@ -234,20 +236,20 @@ public class PlaylistDetailActivity extends BaseActivity implements ATEActivityT
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class loadRecentlyPlayed extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... params) {
             TopTracksLoader loader = new TopTracksLoader(mContext, TopTracksLoader.QueryType.RecentSongs);
-            List<Song> recentsongs = SongLoader.getSongsForCursor(TopTracksLoader.getCursor());
-            mAdapter = new SongsListAdapter(mContext, recentsongs, true, animate);
+            List<Song> recentSongs = SongLoader.getSongsForCursor(TopTracksLoader.getCursor());
+            mAdapter = new SongsListAdapter(mContext, recentSongs, true, animate);
             mAdapter.setPlaylistId(playlistID);
             return "Executed";
         }
 
         @Override
         protected void onPostExecute(String result) {
-            setRecyclerViewAapter();
+            setRecyclerViewAdapter();
 
         }
 
@@ -256,20 +258,20 @@ public class PlaylistDetailActivity extends BaseActivity implements ATEActivityT
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class loadTopTracks extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... params) {
             TopTracksLoader loader = new TopTracksLoader(mContext, TopTracksLoader.QueryType.TopTracks);
-            List<Song> toptracks = SongLoader.getSongsForCursor(TopTracksLoader.getCursor());
-            mAdapter = new SongsListAdapter(mContext, toptracks, true, animate);
+            List<Song> topTracks = SongLoader.getSongsForCursor(TopTracksLoader.getCursor());
+            mAdapter = new SongsListAdapter(mContext, topTracks, true, animate);
             mAdapter.setPlaylistId(playlistID);
             return "Executed";
         }
 
         @Override
         protected void onPostExecute(String result) {
-            setRecyclerViewAapter();
+            setRecyclerViewAdapter();
         }
 
         @Override
@@ -277,20 +279,20 @@ public class PlaylistDetailActivity extends BaseActivity implements ATEActivityT
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class loadUserCreatedPlaylist extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... params) {
             playlistID = getIntent().getExtras().getLong(Constants.PLAYLIST_ID);
-            List<Song> playlistsongs = PlaylistSongLoader.getSongsInPlaylist(mContext, playlistID);
-            mAdapter = new SongsListAdapter(mContext, playlistsongs, true, animate);
+            List<Song> playlistSongs = PlaylistSongLoader.getSongsInPlaylist(mContext, playlistID);
+            mAdapter = new SongsListAdapter(mContext, playlistSongs, true, animate);
             mAdapter.setPlaylistId(playlistID);
             return "Executed";
         }
 
         @Override
         protected void onPostExecute(String result) {
-            setRecyclerViewAapter();
+            setRecyclerViewAdapter();
         }
 
         @Override
@@ -350,10 +352,10 @@ public class PlaylistDetailActivity extends BaseActivity implements ATEActivityT
 
     private void showDeletePlaylistDialog() {
         new MaterialDialog.Builder(this)
-                .title("Delete playlist?")
-                .content("Are you sure you want to delete playlist " + playlistname.getText().toString() + " ?")
-                .positiveText("Delete")
-                .negativeText("Cancel")
+                .title(getString(R.string.delete_playlist) + "?")
+                .content(getString(R.string.delete_playlist_tip) + " " + playlistname.getText().toString() + " ?")
+                .positiveText(getString(R.string.delete))
+                .negativeText(getString(R.string.cancel))
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

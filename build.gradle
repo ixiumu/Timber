@@ -31,6 +31,6 @@ ext {
     // App dependencies
     supportLibraryVersion = '27.0.2'
     retrofitVersion = '2.3.0'
-    okHttp3Version = '3.9.0'
+    okHttp3Version = '3.12.13'
 }
 

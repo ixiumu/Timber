@@ -93,7 +93,7 @@
         <Preference
             android:key="lastfm_login"
             android:summary="@string/lastfm_pref"
-            android:title="Login" />
+            android:title="@string/login" />
 
         <com.afollestad.appthemeengine.prefs.ATECheckBoxPreference
             android:defaultValue="true"
@@ -127,20 +127,6 @@
             android:summary="@string/summary_xposed_trackselector"
             android:title="@string/xposed_trackselector"
             app:ateKey_pref_checkBox="?ate_key" />
-
-    </com.naman14.timber.widgets.ThemedPreferenceCategory>
-
-    <com.naman14.timber.widgets.ThemedPreferenceCategory android:title="Support">
-
-        <Preference
-            android:key="support_development"
-            android:summary="Support the development of Timber and unlock all now playing styles"
-            android:title="Support development" />
-
-        <Preference
-            android:key="restore_purchases"
-            android:summary="Restore previous purchases"
-            android:title="Restore purchases" />
 
     </com.naman14.timber.widgets.ThemedPreferenceCategory>
 
